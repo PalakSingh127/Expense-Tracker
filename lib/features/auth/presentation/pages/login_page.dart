@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture/core/theme/app_pallete.dart';
-import 'package:flutter_clean_architecture/features/auth/presentation/pages/widgets/auth_field.dart';
-import 'package:flutter_clean_architecture/features/auth/presentation/pages/widgets/auth_gradient_button.dart';
-import 'package:flutter_clean_architecture/features/auth/presentation/pages/widgets/signup_page.dart';
+import 'package:flutter_clean_architecture/features/auth/presentation/widgets/auth_field.dart';
+import 'package:flutter_clean_architecture/features/auth/presentation/widgets/auth_gradient_button.dart';
+import 'package:flutter_clean_architecture/features/auth/presentation/pages/signup_page.dart';
+import '../bloc/bloc/auth_bloc.dart';
+import '../bloc/events/auth_event.dart';
+import '../bloc/states/auth_state.dart';
 
 class LoginPage extends StatefulWidget {
   static route() => MaterialPageRoute(builder: (context) => LoginPage());
@@ -37,16 +41,39 @@ class _LoginPageState extends State<LoginPage> {
                 Text('Sign In', style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
+                  color: AppPallete.gradient2,
                 ),
                 ),
                 SizedBox(height: 30,),
-                AuthField(hintText: 'Email',),
+                AuthField(
+                  hintText: 'Email',
+                  controller: emailController,
+                ),
                 SizedBox(height: 15,),
-                AuthField(hintText: 'Password',
+            AuthField(
+              hintText: 'Password',
+              controller: emailController,
                 isObsecureText: true,
                 ),
                 SizedBox(height: 20,),
-                AuthGradientButton(),
+                AuthGradientButton(
+
+                  buttonText: 'Sign In',
+
+                  onPressed: () {
+
+                    if (formKey.currentState!.validate()) {
+
+                      context.read<AuthBloc>().add(
+
+                          LoginEvent(
+                            emailController.text.trim(),
+                            passwordController.text.trim(),
+                          )
+                      );
+                    }
+                  },
+                ),
                 GestureDetector(
                   onTap: (){
                     Navigator.of(context).push(SignupPage.route());

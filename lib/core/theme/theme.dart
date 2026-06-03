@@ -15,6 +15,9 @@ class AppTheme{
       contentPadding: EdgeInsets.all(20.0),
       enabledBorder: _border(),
       focusedBorder: _border(AppPallete.gradient2),
+      hintStyle: TextStyle(
+        color: Color.fromRGBO(255, 255, 255, 1)
+      ),
     ),
   );
 }

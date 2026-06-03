@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/core/theme/app_pallete.dart';
-import 'package:flutter_clean_architecture/features/auth/presentation/pages/widgets/login_page.dart';
+import 'package:flutter_clean_architecture/features/auth/presentation/pages/login_page.dart';
 import 'package:lottie/lottie.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

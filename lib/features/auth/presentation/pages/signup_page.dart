@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/features/auth/presentation/pages/widgets/auth_field.dart';
-import 'package:flutter_clean_architecture/features/auth/presentation/pages/widgets/auth_gradient_button.dart';
-import 'package:flutter_clean_architecture/features/auth/presentation/pages/widgets/login_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_clean_architecture/features/auth/presentation/widgets/auth_field.dart';
+import 'package:flutter_clean_architecture/features/auth/presentation/widgets/auth_gradient_button.dart';
+import 'package:flutter_clean_architecture/features/auth/presentation/pages/login_page.dart';
 
 import '../../../../../core/theme/app_pallete.dart';
+import '../bloc/bloc/auth_bloc.dart';
+import '../bloc/events/auth_event.dart';
+import '../bloc/states/auth_state.dart';
 
 class SignupPage extends StatefulWidget {
   static route() => MaterialPageRoute(builder: (context) => SignupPage());
@@ -14,20 +18,20 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  final NameController = TextEditingController();
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   @override
   void dispose(){
-    NameController.dispose();
+    nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
@@ -35,20 +39,47 @@ class _SignupPageState extends State<SignupPage> {
             key: formKey,
             child: Column(
               children: [
-                SizedBox(height: 150,),
+                SizedBox(height: 250,),
                 Text('Sign Up', style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
+                  color: AppPallete.gradient2
                 ),
                 ),
                 SizedBox(height: 30,),
-                AuthField(hintText: 'Name',),
+                AuthField(
+                  hintText: 'Name',
+                  controller: nameController,
+                ),
                 SizedBox(height: 15,),
-                AuthField(hintText: 'Email',),
+                AuthField(
+                  hintText: 'Email',
+                  controller: emailController,
+                ),
                 SizedBox(height: 15,),
-                AuthField(hintText: 'Password', isObsecureText: true,),
+                AuthField(
+                  hintText: 'Password',
+                  controller: passwordController,
+                 isObsecureText: true,),
                 SizedBox(height: 20,),
-                AuthGradientButton(),
+                AuthGradientButton(
+
+                  buttonText: 'Sign Up',
+
+                  onPressed: () {
+
+                    if (formKey.currentState!.validate()) {
+
+                      context.read<AuthBloc>().add(
+
+                          SignupEvent(
+                            emailController.text.trim(),
+                            passwordController.text.trim(),
+                          )
+                      );
+                    }
+                  },
+                ),
                 GestureDetector(onTap: (){
                   Navigator.of(context).push(LoginPage.route());
                 },
