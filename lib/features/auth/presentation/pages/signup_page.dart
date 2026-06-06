@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture/features/auth/presentation/widgets/auth_field.dart';
 import 'package:flutter_clean_architecture/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:flutter_clean_architecture/features/auth/presentation/pages/login_page.dart';
+import 'package:flutter_clean_architecture/features/dashboard/presentation/pages/dashboard_screen.dart';
 
 import '../../../../../core/theme/app_pallete.dart';
 import '../bloc/bloc/auth_bloc.dart';
@@ -63,11 +64,10 @@ class _SignupPageState extends State<SignupPage> {
                  isObsecureText: true,),
                 SizedBox(height: 20,),
                 AuthGradientButton(
-
                   buttonText: 'Sign Up',
-
                   onPressed: () {
-
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder:
+                    (context) => DashboardScreen()));
                     if (formKey.currentState!.validate()) {
 
                       context.read<AuthBloc>().add(

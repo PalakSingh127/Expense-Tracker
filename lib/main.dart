@@ -4,6 +4,7 @@ import 'package:flutter_clean_architecture/core/theme/theme.dart';
 import 'package:flutter_clean_architecture/features/auth/presentation/pages/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_clean_architecture/features/dashboard/presentation/pages/dashboard_screen.dart';
 import 'features/auth/data/datasources/auth_remote_data_source.dart';
 import 'features/auth/domain/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/usecases/login_usecase.dart';
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Authentication',
       theme: AppTheme.darkThemeMode,
-      home: SplashScreen(),
+      home: DashboardScreen(),
     );
   }
 }
