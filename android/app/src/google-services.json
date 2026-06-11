@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1051181255576:android:8e2e2393bb2d455f87b9ed",
         "android_client_info": {
-          "package_name": "com.example.flutter_clean_architecture"
+          "package_name": "com.alpha.expensetracker"
         }
       },
       "oauth_client": [],

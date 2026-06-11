@@ -5,6 +5,8 @@ import 'package:flutter_clean_architecture/features/auth/presentation/pages/spla
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_clean_architecture/features/dashboard/presentation/pages/dashboard_screen.dart';
+import 'package:flutter_clean_architecture/features/dashboard/presentation/pages/expense_overview_page.dart';
+import 'features/auth/data/auth_remote_data_source_impl.dart';
 import 'features/auth/data/datasources/auth_remote_data_source.dart';
 import 'features/auth/domain/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/usecases/login_usecase.dart';
@@ -24,7 +26,7 @@ void main() async {
 
             AuthRepositoryImpl(
 
-              AuthRemoteDataSourceImpl(
+              AuthRemoteDatasourceImpl(
                 FirebaseAuth.instance,
               ),
             ),
@@ -34,7 +36,7 @@ void main() async {
 
             AuthRepositoryImpl(
 
-              AuthRemoteDataSourceImpl(
+              AuthRemoteDatasourceImpl(
                 FirebaseAuth.instance,
               ),
             ),
@@ -54,7 +56,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Authentication',
       theme: AppTheme.darkThemeMode,
-      home: DashboardScreen(),
+      home: SplashScreen() ,
     );
   }
 }

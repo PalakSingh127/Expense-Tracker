@@ -6,8 +6,9 @@ class ExpenseLoading extends ExpenseState {}
 
 class ExpenseSuccess extends ExpenseState {}
 
-class ExpenseFailure extends ExpenseState {
+class ExpenseDeleteSuccess extends ExpenseState {}
 
+class ExpenseFailure extends ExpenseState {
   final String message;
 
   ExpenseFailure(this.message);

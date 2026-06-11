@@ -1,8 +1,6 @@
 abstract class ExpenseEvent {}
 
-class AddExpenseEvent
-    extends ExpenseEvent {
-
+class AddExpenseEvent extends ExpenseEvent {
   final String title;
   final double amount;
   final String category;
@@ -13,5 +11,13 @@ class AddExpenseEvent
     required this.amount,
     required this.category,
     required this.note,
+  });
+}
+
+class DeleteExpenseEvent extends ExpenseEvent {
+  final String expenseId;
+
+  DeleteExpenseEvent({
+    required this.expenseId,
   });
 }

@@ -12,18 +12,31 @@ import '../bloc/events/auth_event.dart';
 import '../bloc/states/auth_state.dart';
 
 class LoginPage extends StatefulWidget {
+
   static route() =>
       MaterialPageRoute(
-        builder: (context) => const LoginPage(),
+        builder: (context) =>
+        const LoginPage(),
       );
+
   const LoginPage({super.key});
+
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginPage> createState() =>
+      _LoginPageState();
 }
+
 class _LoginPageState extends State<LoginPage> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  bool isPasswordVisible = false;
+  final emailController =
+  TextEditingController();
+
+  final passwordController =
+  TextEditingController();
+
+  final formKey =
+  GlobalKey<FormState>();
+
   @override
   void dispose() {
 
@@ -39,108 +52,243 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
 
-      body: BlocListener<AuthBloc, AuthState>(
+      body: BlocListener<
+          AuthBloc,
+          AuthState>(
 
         listener: (context, state) {
+
           if (state is AuthSuccess) {
+
             Navigator.pushReplacement(
+
               context,
+
               MaterialPageRoute(
-                builder: (_) => const DashboardScreen(),
+
+                builder: (_) =>
+                const DashboardScreen(),
               ),
             );
           }
+
           if (state is AuthFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
+
+            ScaffoldMessenger.of(context)
+                .showSnackBar(
+
               SnackBar(
-                content: Text(state.message),
+                content:
+                Text(state.message),
               ),
             );
           }
         },
 
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: SingleChildScrollView(
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 250,
+        child: Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                AppPallete.gradient1,
+                AppPallete.gradient2,
+                Colors.black,
+              ],
+            ),
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              padding:
+              const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: Container(
+                padding:
+                const EdgeInsets.all(25),
+                decoration: BoxDecoration(
+                  color: Colors.white
+                      .withOpacity(0.12),
+                  borderRadius:
+                  BorderRadius.circular(
+                    30,
                   ),
-                  const Text(
-                    'Sign In',
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: AppPallete.gradient2,
+                  border: Border.all(
+                    color: Colors.white
+                        .withOpacity(0.2),
+                    width: 1.5,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black
+                          .withOpacity(0.2),
+                      blurRadius: 15,
+                      offset:
+                      const Offset(0, 8),
                     ),
-                  ),
-                  const SizedBox(height: 30),
-                  AuthField(
-                    hintText: 'Email',
-                    controller: emailController,
-                  ),
-                  const SizedBox(height: 15),
-                  AuthField(
-                    hintText: 'Password',
-                    controller: passwordController,
-                    isObsecureText: true,
-                  ),
-                  const SizedBox(height: 20),
-                  AuthGradientButton(
-                    buttonText: 'Sign In',
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        context.read<AuthBloc>().add(
-                          LoginEvent(
-                            emailController.text.trim(),
-                            passwordController.text.trim(),
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        SignupPage.route(),
-                      );
-                    },
-
-                    child: RichText(
-
-                      text: TextSpan(
-
-                        text: 'Don\'t have an account? ',
-
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall,
-
-                        children: [
-
-                          TextSpan(
-
-                            text: 'Sign Up',
-
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-
-                              color: AppPallete.gradient2,
-
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                  ],
+                ),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisSize:
+                    MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.account_circle,
+                        size: 90,
+                        color: Colors.white,
                       ),
-                    ),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      const Text(
+                        'Sign In',
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight:
+                          FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+
+                      const Text(
+
+                        "Welcome Back",
+
+                        style: TextStyle(
+
+                          color:
+                          Colors.white70,
+
+                          fontSize: 16,
+                        ),
+                      ),
+
+                      const SizedBox(
+                        height: 35,
+                      ),
+
+                      AuthField(
+
+                        hintText: 'Email',
+
+                        controller:
+                        emailController,
+                      ),
+
+                      const SizedBox(
+                        height: 18,
+                      ),
+
+                      AuthField(
+
+                        hintText: 'Password',
+
+                        controller:
+                        passwordController,
+
+                        isObsecureText: true,
+                      ),
+
+                      const SizedBox(
+                        height: 30,
+                      ),
+
+                      AuthGradientButton(
+
+                        buttonText:
+                        'Sign In',
+
+                        onPressed: () {
+
+                          if (formKey
+                              .currentState!
+                              .validate()) {
+
+                            context
+                                .read<AuthBloc>()
+                                .add(
+
+                              LoginEvent(
+
+                                emailController
+                                    .text
+                                    .trim(),
+
+                                passwordController
+                                    .text
+                                    .trim(),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+
+                      const SizedBox(
+                        height: 25,
+                      ),
+
+                      GestureDetector(
+
+                        onTap: () {
+
+                          Navigator.of(context)
+                              .push(
+
+                            SignupPage.route(),
+                          );
+                        },
+
+                        child: RichText(
+
+                          text: TextSpan(
+
+                            text:
+                            'Don\'t have an account? ',
+
+                            style:
+                            const TextStyle(
+
+                              color:
+                              Colors.white70,
+
+                              fontSize: 15,
+                            ),
+
+                            children: [
+
+                              TextSpan(
+
+                                text:
+                                'Sign Up',
+
+                                style:
+                                const TextStyle(
+
+                                  color:
+                                  Colors.white,
+
+                                  fontWeight:
+                                  FontWeight.bold,
+
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
