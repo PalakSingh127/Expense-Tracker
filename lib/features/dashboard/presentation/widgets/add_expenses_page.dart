@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture/core/theme/app_pallete.dart';
+import 'package:flutter_clean_architecture/features/dashboard/presentation/pages/expense_overview_page.dart';
 
 import '../bloc/expense_bloc.dart';
 import '../bloc/expense_event.dart';
@@ -85,6 +86,9 @@ class _AddExpensePageState
                 backgroundColor: AppPallete.borderColor,
                 content: Text(
                   "Expense Added Successfully",
+                  style: TextStyle(
+                    color: AppPallete.containerColor
+                  ),
                 ),
               ),
             );
@@ -112,6 +116,9 @@ class _AddExpensePageState
               child: Column(
                 children: [
                   TextField(
+                    style: TextStyle(
+                        color: AppPallete.containerColor
+                    ),
                     controller:
                     titleController,
                     decoration:
@@ -134,6 +141,9 @@ class _AddExpensePageState
                     height: 16,
                   ),
                   TextField(
+                    style: TextStyle(
+                        color: AppPallete.containerColor
+                    ),
                     controller:
                     amountController,
 
@@ -174,6 +184,9 @@ class _AddExpensePageState
 
                         child: Text(
                           category,
+                          style: TextStyle(
+                              color: AppPallete.containerColor
+                          ),
                         ),
                       );
 
@@ -260,6 +273,9 @@ class _AddExpensePageState
                     height: 16,
                   ),
                   TextField(
+                    style: TextStyle(
+                      color: AppPallete.containerColor
+                    ),
                     controller:
                     noteController,
                     maxLines: 3,
@@ -289,48 +305,32 @@ class _AddExpensePageState
                     child:
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppPallete.borderColor
+                        backgroundColor: AppPallete.borderColor,
+
                       ),
-                      onPressed: () {
-                        if (titleController
-                            .text
-                            .isEmpty ||
-                            amountController
-                                .text
-                                .isEmpty) {
-                          ScaffoldMessenger
-                              .of(context)
-                              .showSnackBar(
+                      onPressed: (
+                          ) {
+                        if (titleController.text.isEmpty ||
+                            amountController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
                                 "Please fill all fields",
                               ),
                             ),
                           );
-
                           return;
                         }
-
                         context
-                            .read<
-                            ExpenseBloc>()
-                            .add(
-
+                            .read<ExpenseBloc>().add(
                           AddExpenseEvent(
-
-                            title:
-                            titleController
-                                .text,
-
-                            amount:
-                            double.parse(
+                            title: titleController.text,
+                            amount: double.parse(
                               amountController
                                   .text,
                             ),
-
                             category:
                             selectedCategory,
-
                             note:
                             noteController
                                 .text,
@@ -347,7 +347,7 @@ class _AddExpensePageState
                         CircularProgressIndicator(
                           strokeWidth:
                           2,
-                          color: AppPallete.borderColor,
+                          color: AppPallete.containerColor,
                         ),
                       )
                           : const Text(
@@ -357,6 +357,7 @@ class _AddExpensePageState
                           fontSize:
                           18,
                           color: AppPallete.containerColor,
+
                         ),
                       ),
                     ),

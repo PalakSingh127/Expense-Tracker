@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 
+import 'features/auth/data/auth_remote_data_source_impl.dart';
 import 'features/auth/data/datasources/auth_remote_data_source.dart';
 
 
@@ -25,7 +26,7 @@ Future<void> init() async {
 
   // DataSource
   sl.registerLazySingleton<AuthRemoteDataSource>(
-        () => AuthRemoteDataSourceImpl(sl()),
+        () => AuthRemoteDatasourceImpl(sl()),
   );
 
   // Repository

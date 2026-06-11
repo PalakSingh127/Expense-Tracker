@@ -4,4 +4,7 @@ abstract class ExpenseRepository {
 
   Future<void> addExpense(
       ExpenseEntity expense);
+  Future<void> deleteExpense(
+      String expenseId,
+      );
 }
